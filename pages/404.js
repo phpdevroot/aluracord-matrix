@@ -2,6 +2,7 @@ import { Box, Button, Text, TextField, Image } from '@skynexui/components';
 import React from 'react';
 import { useRouter } from 'next/router';
 import appConfig from '../config.json';
+import { AudioPlayer } from '../Components/AudioPlayer';
 
 function Titulo(props) {
   console.log(props);
@@ -9,6 +10,9 @@ function Titulo(props) {
 
   return (
     <>
+      <title>FAIL ---[]V[]achine </title>
+      <link rel="icon" />
+
       <Tag>{props.children}</Tag>
       <style jsx>{`
         ${Tag} {
@@ -21,21 +25,7 @@ function Titulo(props) {
   );
 }
 
-/* componente React
-function HomePage() {
-JSX
-  return (
-    <div>
-      <GlobalStyle />
-     <Titulo tag="h2">Boas vindas de sssssvolta!</Titulo>
-    <h2>Discord - Alura Matrix</h2>
-    </div>
-  );
-}
-export default HomePage; */
-
-export default function PaginaInicial() {
-  //const username = 'phpdevroot';
+export default function pg404() {
   const [username, setUsername] = React.useState('phpdevroot');
   const roteamento = useRouter();
 
@@ -48,9 +38,9 @@ export default function PaginaInicial() {
           justifyContent: 'center',
           backgroundColor: appConfig.theme.colors.primary[500],
           backgroundImage:
-            'url(https://virtualbackgrounds.site/wp-content/uploads/2020/08/the-matrix-digital-rain.jpg)',
+            'url(https://aluracord-matrix-one-ivory.vercel.app/src/t1000.png)',
           backgroundRepeat: 'no-repeat',
-          backgroundSize: 'cover',
+          //backgroundSize: 'cover',
           backgroundBlendMode: 'multiply',
         }}
       >
@@ -78,7 +68,7 @@ export default function PaginaInicial() {
             onSubmit={function (infosDoEvento) {
               infosDoEvento.preventDefault();
               console.log('Alguém submeteu o form');
-              roteamento.push('/chat');
+              roteamento.push('/');
               // window.location.href = '/chat';
             }}
             styleSheet={{
@@ -86,12 +76,12 @@ export default function PaginaInicial() {
               flexDirection: 'column',
               alignItems: 'center',
               justifyContent: 'center',
-              width: { xs: '100%', sm: '50%' },
+              width: { xs: '100%', sm: '60%' },
               textAlign: 'center',
               marginBottom: '32px',
             }}
           >
-            <Titulo tag="h2">Boas vindas de volta!</Titulo>
+            <Titulo tag="h2">COME WITH ME IF WANNA LIVE</Titulo>
             <Text
               variant="body3"
               styleSheet={{
@@ -106,10 +96,7 @@ export default function PaginaInicial() {
               value={username}
               onChange={function (event) {
                 console.log('usuario digitou', event.target.value);
-                // Onde ta o valor?
                 const valor = event.target.value;
-                // Trocar o valor da variavel
-                // através do React e avise quem precisa
                 setUsername(valor);
               }}
               fullWidth
@@ -124,7 +111,7 @@ export default function PaginaInicial() {
             />
             <Button
               type="submit"
-              label="Entrar"
+              label="NEED HELP"
               fullWidth
               buttonColors={{
                 contrastColor: appConfig.theme.colors.neutrals['000'],
@@ -134,9 +121,6 @@ export default function PaginaInicial() {
               }}
             />
           </Box>
-          {/* Formulário */}
-
-          {/* Photo Area */}
           <Box
             styleSheet={{
               display: 'flex',
