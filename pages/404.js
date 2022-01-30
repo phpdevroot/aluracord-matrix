@@ -12,6 +12,13 @@ function Titulo(props) {
     <>
       <title>FAIL ---[]V[]achine </title>
       <link rel="icon" />
+      <AudioPlayer />
+
+      {/*  <audio
+        src="https://aluracord-matrix-one-ivory.vercel.app/src/terminator.mp3"
+        controls
+        autoplay
+      /> */}
 
       <Tag>{props.children}</Tag>
       <style jsx>{`

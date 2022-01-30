@@ -3,9 +3,11 @@ import React from 'react';
 const AudioPlayer = () => {
   return (
     <div>
-      {/* Audio AudioPlayer */}
-
-      <audio src="../public/terminator.mp3"></audio>
+      <audio
+        src="https://aluracord-matrix-one-ivory.vercel.app/src/terminator.mp3"
+        controls
+        autoplay
+      ></audio>
     </div>
   );
 };
