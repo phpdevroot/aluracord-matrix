@@ -1,6 +1,7 @@
 import { Box, Text, TextField, Image, Button } from '@skynexui/components';
 import React from 'react';
 import appConfig from '../config.json';
+import { useRouter } from 'next/router';
 import { createClient } from '@supabase/supabase-js';
 
 const SUPABASE_ANON_KEY =
@@ -9,6 +10,14 @@ const SUPABASE_URL = 'https://chdyudiljwslsfwtaaso.supabase.co';
 const supabaseClient = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 export default function ChatPage() {
+  const roteamento = useRouter();
+  const usuarioLogado = roteamento.query.username;
+  console.log('MONITOR DE LOGIN roteamento.query ' + roteamento.query);
+  console.log(
+    'MONITOR DE LOGIN roteamento.query.username ' + roteamento.query.username
+  );
+  console.log('Logado como ' + usuarioLogado);
+
   const [mensagem, setMensagem] = React.useState('');
   const [listaDeMensagens, setListaDeMensagens] = React.useState([]);
 
@@ -19,7 +28,7 @@ export default function ChatPage() {
       .select('*')
       .order('id', { ascending: false })
       .then(({ data }) => {
-        console.log('Dados da Consulta:', data);
+        //console.log('Dados da Consulta:', data);
         setListaDeMensagens(data);
       });
   }, []);
@@ -27,7 +36,7 @@ export default function ChatPage() {
   function handleNovaMensagem(novaMensagem) {
     const mensagem = {
       //id: listaDeMensagens.length + 1,
-      de: 'phpdevroot',
+      de: usuarioLogado,
       texto: novaMensagem,
     };
 

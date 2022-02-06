@@ -21,19 +21,6 @@ function Titulo(props) {
   );
 }
 
-/* componente React
-function HomePage() {
-JSX
-  return (
-    <div>
-      <GlobalStyle />
-     <Titulo tag="h2">Boas vindas de sssssvolta!</Titulo>
-    <h2>Discord - Alura Matrix</h2>
-    </div>
-  );
-}
-export default HomePage; */
-
 export default function PaginaInicial() {
   //const username = 'phpdevroot';
   const [username, setUsername] = React.useState('phpdevroot');
@@ -78,8 +65,9 @@ export default function PaginaInicial() {
             onSubmit={function (infosDoEvento) {
               infosDoEvento.preventDefault();
               console.log('Alguém submeteu o form');
-              roteamento.push('/chat');
+              // roteamento.push('/chat');//
               // window.location.href = '/chat';
+              roteamento.push(`/chat?username=${username}`);
             }}
             styleSheet={{
               display: 'flex',

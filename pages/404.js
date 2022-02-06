@@ -2,7 +2,7 @@ import { Box, Button, Text, TextField, Image } from '@skynexui/components';
 import React from 'react';
 import { useRouter } from 'next/router';
 import appConfig from '../config.json';
-import { AudioPlayer } from '../Components/AudioPlayer';
+import { AudioPlayer } from '../src/components/AudioPlayer';
 
 function Titulo(props) {
   console.log(props);

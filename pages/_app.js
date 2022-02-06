@@ -30,7 +30,7 @@ function GlobalStyle() {
 }
 
 export default function CustomApp({ Component, pageProps }) {
-  console.log('AJUSTE GLOBAL');
+  //console.log('AJUSTE GLOBAL');
   return (
     <>
       <GlobalStyle />
