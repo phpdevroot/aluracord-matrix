@@ -32,6 +32,7 @@ export function ButtonSendSticker(props) {
         label="😋"
         onClick={() => setOpenState(!isOpen)}
       />
+
       {isOpen && (
         <Box
           styleSheet={{
@@ -59,7 +60,7 @@ export function ButtonSendSticker(props) {
               fontWeight: 'bold',
             }}
           >
-            Stickers
+            Stickers Zikas
           </Text>
           <Box
             tag="ul"

@@ -10,63 +10,48 @@ const SUPABASE_ANON_KEY =
 const SUPABASE_URL = 'https://chdyudiljwslsfwtaaso.supabase.co';
 const supabaseClient = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-function escutaMensagensEmTempoReal(adicionaMensagem) {
-  return supabaseClient
-    .from('mensagens')
-    .on('INSERT', (respostaLive) => {
-      adicionaMensagem(respostaLive.new);
-    })
-    .subscribe();
-}
-
 export default function ChatPage() {
   const roteamento = useRouter();
   const usuarioLogado = roteamento.query.username;
+  console.log('MONITOR DE LOGIN roteamento.query ' + roteamento.query);
+  console.log(
+    'MONITOR DE LOGIN roteamento.query.username ' + roteamento.query.username
+  );
+  console.log('Logado como ' + usuarioLogado);
+
   const [mensagem, setMensagem] = React.useState('');
   const [listaDeMensagens, setListaDeMensagens] = React.useState([]);
 
+  // useEffect evita que a cada letra seja acessado o servidor
   React.useEffect(() => {
     supabaseClient
       .from('mensagens')
       .select('*')
       .order('id', { ascending: false })
       .then(({ data }) => {
-        console.log('Dados da consulta:', data);
+        //console.log('Dados da Consulta:', data);
         setListaDeMensagens(data);
       });
-
-    const subscription = escutaMensagensEmTempoReal((novaMensagem) => {
-      //console.log('Nova mensagem:', novaMensagem);
-      //console.log('listaDeMensagens:', listaDeMensagens);
-      setListaDeMensagens((valorAtualDaLista) => {
-        //console.log('valorAtualDaLista:', valorAtualDaLista);
-        return [novaMensagem, ...valorAtualDaLista];
-      });
-    });
-
-    return () => {
-      subscription.unsubscribe();
-    };
   }, []);
 
   function handleNovaMensagem(novaMensagem) {
     const mensagem = {
+      //id: listaDeMensagens.length + 1,
       de: usuarioLogado,
       texto: novaMensagem,
     };
 
     supabaseClient
       .from('mensagens')
-      .insert([
-        // Tem que ser um objeto com os MESMOS CAMPOS que você escreveu no supabase
-        mensagem,
-      ])
+      .insert([mensagem])
       .then(({ data }) => {
-        console.log('Criando mensagem: ', data);
+        console.log('retorno do servidor', data);
+        setListaDeMensagens([data[0], ...listaDeMensagens]);
       });
 
     setMensagem('');
   }
+
   return (
     <Box
       styleSheet={{
@@ -148,19 +133,14 @@ export default function ChatPage() {
                 color: appConfig.theme.colors.neutrals[200],
               }}
             />
-            {/* CallBack */}
-            <ButtonSendSticker
-              onStickerClick={(sticker) => {
-                // console.log('[USANDO O COMPONENTE] Salva esse sticker no banco', sticker);
-                handleNovaMensagem(':sticker: ' + sticker);
-              }}
-            />
+            <ButtonSendSticker />
           </Box>
         </Box>
       </Box>
     </Box>
   );
 }
+
 function Header() {
   return (
     <>
@@ -173,7 +153,7 @@ function Header() {
           justifyContent: 'space-between',
         }}
       >
-        <Text variant="heading5">Chat</Text>
+        <Text variant="heading5">Chat do Aluracord by BoOoT</Text>
         <Button
           variant="tertiary"
           colorVariant="neutral"
@@ -186,6 +166,7 @@ function Header() {
 }
 
 function MessageList(props) {
+  console.log(props);
   return (
     <Box
       tag="ul"
@@ -236,21 +217,11 @@ function MessageList(props) {
                 }}
                 tag="span"
               >
-                {new Date().toLocaleDateString()}
+                {new Date().toLocaleDateString()} às{' '}
+                {new Date().toLocaleTimeString()}
               </Text>
             </Box>
-            {/* [Declarativo] */}
-            {/* Condicional: {mensagem.texto.startsWith(':sticker:').toString()} */}
-            {mensagem.texto.startsWith(':sticker:') ? (
-              <Image src={mensagem.texto.replace(':sticker:', '')} />
-            ) : (
-              mensagem.texto
-            )}
-            {/* if mensagem de texto possui stickers:
-                           mostra a imagem
-                        else 
-                           mensagem.texto */}
-            {/* {mensagem.texto} */}
+            {mensagem.texto}
           </Text>
         );
       })}
