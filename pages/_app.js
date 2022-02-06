@@ -1,3 +1,5 @@
+// finalizado
+
 function GlobalStyle() {
   return (
     <style global jsx>{`
